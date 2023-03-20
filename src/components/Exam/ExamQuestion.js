@@ -18,7 +18,10 @@ export default class ExamQuestion extends Component {
             numberListeningCorrect: 0,
             readingScore: 0,
             listeningScore: 0,
-            fullTest: 0
+            fullTest: 0,
+            numberReading: 0,
+            numberListening: 0,
+            partTest: ""
         };
         this.itemRefs = {};
     }
@@ -28,29 +31,89 @@ export default class ExamQuestion extends Component {
         const params = new URLSearchParams(search);
         const examId = params.get('exam');
         const miniExamId = params.get('mini-exam');
+        const partTest = params.get('test');
+        let numberReading = 0
+        let numberListening = 0
         if (examId) {
             let result = await dataService.getExamDetail(examId);
             var questionNumber = result.questionList[result.questionList.length - 1].childQuestion.length == 0 ?
                 result.questionList[result.questionList.length - 1].questionNumber + result.questionList[result.questionList.length - 1].childQuestion.length : result.questionList[result.questionList.length - 1].questionNumber + result.questionList[result.questionList.length - 1].childQuestion.length - 1;
+
+            result.questionList.map(function (item) {
+                if (item.childQuestion.length === 0) {
+                    if (item.sound !== null) {
+                        numberReading += 1;
+                    } else {
+                        numberListening += 1;
+                    }
+                }
+            })
+
+            result.questionList.map(function (item) {
+                if (item.childQuestion.length > 0) {
+                    if (item.sound !== null) {
+                        numberReading += item.childQuestion.length;
+                    } else {
+                        numberListening += item.childQuestion.length;
+                    }
+                }
+            })
+
             this.setState({
                 listQuestion: result.questionList,
                 questionState: new Array(questionNumber).fill(0),
                 questionResult: new Array(questionNumber).fill(0),
-                fullTest: 1
+                fullTest: 1,
+                numberReading: numberReading,
+                numberListening: numberListening,
+                partTest: partTest
             });
-            console.log(result)
+            console.log(result);
+
+            console.log(this.state.numberReading +  "-----"  + this.state.numberListening);
+            console.log(this.state.numberReading +  "-----"  + this.state.numberListening);
+
+
+            console.log(this.state.numberReading +  "-----"  + this.state.numberListening);
         }
         if (miniExamId) {
             let result = await dataService.getMiniExamDetail(miniExamId);
             var questionNumber = result.questionList[result.questionList.length - 1].childQuestion.length == 0 ?
                 result.questionList[result.questionList.length - 1].questionNumber + result.questionList[result.questionList.length - 1].childQuestion.length : result.questionList[result.questionList.length - 1].questionNumber + result.questionList[result.questionList.length - 1].childQuestion.length - 1;
+            result.questionList.map(function (item) {
+                if (item.childQuestion.length === 0) {
+                    if (item.sound !== null) {
+                        numberReading += 1;
+                    } else {
+                        numberListening += 1;
+                    }
+                }
+            })
+
+            result.questionList.map(function (item) {
+                if (item.childQuestion.length > 0) {
+                    if (item.sound !== null) {
+                        numberReading += item.childQuestion.length;
+                    } else {
+                        numberListening += item.childQuestion.length;
+                    }
+                }
+            })
+
             this.setState({
                 listQuestion: result.questionList,
                 questionState: new Array(questionNumber).fill(0),
                 questionResult: new Array(questionNumber).fill(0),
-                fullTest: 1
+                numberReading: numberReading,
+                numberListening: numberListening,
+                partTest: partTest
             });
             console.log(result)
+            console.log(this.state.numberReading +  "-----"  + this.state.numberListening);
+            console.log(this.state.numberReading +  "-----"  + this.state.numberListening);
+
+
+            console.log(this.state.numberReading +  "-----"  + this.state.numberListening);
         }
     }
 
@@ -99,43 +162,23 @@ export default class ExamQuestion extends Component {
 
     submit() {
         this.setState({ showResult: true })
-        this.setState({ listeningScore: this.calculateScore(this.state.numberListeningCorrect), readingScore: this.calculateScore(this.state.numberReadingCorrect) })
+        this.setState({ listeningScore: this.calculateScoreListening(this.state.numberListeningCorrect), readingScore: this.calculateScoreReading(this.state.numberReadingCorrect) })
         window.scrollTo(0, 0);
     }
 
-    calculateScore(numberCorrert) {
+    calculateScoreListening(numberCorrert) {
+        switch (numberCorrert) {
+            case 0: return 5;
+            default: return numberCorrert * 5 + 10;
+        }
+    }
+
+    calculateScoreReading(numberCorrert) {
         switch (numberCorrert) {
             case 0: return 5;
             case 1: return 5;
             case 2: return 5;
-            case 3: return 5;
-            case 4: return 5;
-            case 5: return 5;
-            case 6: return 5;
-            case 7: return 10;
-            case 8: return 15;
-            case 9: return 20;
-            case 10: return 25;
-            case 11: return 30;
-            case 12: return 35;
-            case 13: return 40;
-            case 14: return 45;
-            case 15: return 50;
-            case 16: return 55;
-            case 17: return 60;
-            case 18: return 65;
-            case 19: return 70;
-            case 20: return 75;
-            case 21: return 80;
-            case 22: return 85;
-            case 23: return 90;
-            case 24: return 95;
-            case 25: return 100;
-            case 26: return 105;
-            case 27: return 110;
-            case 28: return 115;
-            case 29: return 120;
-            case 30: return 125;
+            default: return numberCorrert * 5 - 5;
         }
     }
 
@@ -169,7 +212,7 @@ export default class ExamQuestion extends Component {
                                     {this.state.fullTest === 1 ? 'FULL TEST' : 'MINI TEST'}
                                 </Typography>
                                 <div id="question-palette-panel">
-                                    <div className="current-topic-label">Test 1</div>
+                                    <div className="current-topic-label">{"Test " + this.state.partTest}</div>
                                     <div className="question-palette-main">
                                         <div className="question-palette-header">
                                             <div className="question-palette-title">Question Palette</div>
@@ -188,7 +231,7 @@ export default class ExamQuestion extends Component {
                                             </div>
                                             <div className="questions-stat" style={{ marginTop: "10px" }}>
                                                 <div className="questions-stat-item">
-                                                    <span className="questions-stat-item-text">{this.state.numberSelected}/{this.state.listQuestion.length}</span>
+                                                    <span className="questions-stat-item-text">{this.state.numberSelected}/{this.state.questionResult.length}</span>
                                                 </div>
                                                 <div className="questions-stat-item">
                                                     <Button variant="contained" onClick={() => this.submit()}>Submit</Button>
@@ -224,7 +267,7 @@ export default class ExamQuestion extends Component {
                                                                     <div className="count-questions">
                                                                         <div className="label-wrap">
                                                                             <div className="label">Listening</div>
-                                                                            <div className="number">{this.state.numberListeningCorrect}/100</div>
+                                                                            <div className="number">{this.state.numberListeningCorrect}/{this.state.numberListening}</div>
                                                                         </div>
                                                                         <Tooltip title={this.state.listeningScore} placement="top">
                                                                             <div className="score-slider">
@@ -237,7 +280,7 @@ export default class ExamQuestion extends Component {
                                                                     <div className="count-questions">
                                                                         <div className="label-wrap">
                                                                             <div className="label">Reading</div>
-                                                                            <div className="number">{this.state.numberReadingCorrect}/100</div>
+                                                                            <div className="number">{this.state.numberReadingCorrect}/{this.state.numberReading}</div>
                                                                         </div>
                                                                         <Tooltip title={this.state.readingScore} placement="top">
                                                                             <div className="score-slider">

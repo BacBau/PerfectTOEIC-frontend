@@ -40,7 +40,7 @@ export default class ListExam extends Component {
                                 {this.state.isFullTest === 1 && this.state.listObject.map(
                                     function (data, index) {
                                         return (
-                                            <a href={"../question/exam?exam=" + data}>
+                                            <a href={"../question/exam?exam=" + data + "&test=" + (index + 1)}>
                                                 <div className="practice-list-item">
                                                     <div className="practice-item-name">TEST {index + 1}</div>
                                                     <div className="practice-item-progress">
@@ -54,7 +54,7 @@ export default class ListExam extends Component {
                                 {this.state.isFullTest === 0 && this.state.listObject.map(
                                     function (data, index) {
                                         return (
-                                            <a href={"../question/exam?mini-exam=" + data}>
+                                            <a href={"../question/exam?mini-exam=" + data + "&test=" + (index + 1)}>
                                                 <div className="practice-list-item">
                                                     <div className="practice-item-name">TEST {index + 1}</div>
                                                     <div className="practice-item-progress">
