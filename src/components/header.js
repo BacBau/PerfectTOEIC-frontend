@@ -4,12 +4,13 @@ import React, {Component} from 'react'
 import AppBar from "@mui/material/AppBar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import {Button, Menu, MenuItem} from "@mui/material";
 import dataService from '../Network/dataService';
 import './header.css'
 import {DownOutlined} from "@ant-design/icons";
+import Popup from "reactjs-popup";
+import './menu/Tips/Tips.css'
+import PopupUpdateUser from "./PopupUpdateUser";
 
 export default class Header extends Component {
     constructor(props) {
@@ -19,6 +20,7 @@ export default class Header extends Component {
             anchorTest: null,
             anchorVocabulary: null,
             anchorTips: null,
+            anchorProfileUser: null,
             keyWord: ""
         }
     }
@@ -45,9 +47,19 @@ export default class Header extends Component {
         }
     }
 
-    handleHoverVocabulary(event) {
-        if (this.state.anchorVocabulary !== event.currentTarget) {
-            this.setState({anchorVocabulary: event.currentTarget});
+    handleHoverProfileUser(event) {
+        if (this.state.anchorProfileUser !== event.currentTarget) {
+            this.setState({anchorProfileUser: event.currentTarget});
+        }
+    }
+
+    handleCloseProfileUser() {
+        this.setState({anchorProfileUser: null});
+    }
+
+    handleHoverPractice(event) {
+        if (this.state.anchorPractice !== event.currentTarget) {
+            this.setState({anchorPractice: event.currentTarget});
         }
     }
 
@@ -239,8 +251,8 @@ export default class Header extends Component {
                         }}>
                             <img src={this.props.loggedInUserObj.username.avatar}
                                  style={{width: "50px", height: "50px", borderRadius: "50%"}} alt=""></img>
-                            <Button disable="true"
-                                    color="inherit">{this.props.loggedInUserObj.username.fullName}</Button>
+                            <select disable="true"
+                                    color="inherit">{this.props.loggedInUserObj.username.fullName}</select>
                             <div className="btn-login-logout">
                                 <Button color="inherit" onClick={() => this.handleLogout()}>Log out</Button>
                             </div>
