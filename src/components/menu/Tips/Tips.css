@@ -1,0 +1,113 @@
+.tips-listening {
+    margin-top: 5rem;
+}
+.title-main {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.title-button {
+    font-size: 20px !important;
+}
+.title-text {
+    font-weight: bold;
+    font-size: 32px;
+}
+.title-btn {
+    margin-left: -0.5rem;
+    margin-bottom: 3rem;
+}
+.main {
+    font-family: SVN-Poppins, sans-serif;
+    display: flex;
+}
+.title-tips {
+    color: #34447C;
+    font-size: 24px;
+    font-weight: bold;
+}
+.date-tips {
+    display: flex;
+    color: #34447C;
+    font-size: 16px;
+}
+.img-tips {
+    width: 500px;
+    height: 300px;
+}
+.buh {
+
+}
+.fix-style {
+    width: 200px;
+    height: auto;
+    padding-bottom: 2rem;
+}
+.title-recent {
+    font-weight: bold;
+    color: #34447C;
+}
+.recent-text {
+    font-size: 25px;
+    color: rgba(0,0,0,0.62);
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+.editor-post {
+    max-width: 100%;
+    height: auto;
+}
+.main1 {
+    /*position: absolute;*/
+    z-index: 1;
+}
+.main2 {
+    /*position: absolute;*/
+    /*z-index: 0;*/
+}
+.popup-content {
+    /*margin-top: 16rem !important;*/
+    background: rgb(255, 255, 255);
+    margin: auto;
+    width: 70%;
+    padding: 20px;
+    border-radius: 10px;
+    height: 47rem;
+    overflow: auto;
+}
+.popup-arrow {
+    color: rgb(255, 255, 255);
+}
+[role='tooltip'].popup-content {
+    width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+[data-popup='tooltip'].popup-overlay {
+    background: transparent;
+}
+.ant-input {
+    font-weight: bold;
+}
+.ql-container {
+    height: 25rem !important;
+}
+.handleimage {
+    display: flex;
+    align-items: flex-start;
+}
+.admin-edit {
+    font-size: 25px;
+    color: #34447C;
+    display: flex;
+    justify-content: flex-end;
+}
+.title-main-keyword {
+    font-size: 32px;
+    color: #34447C;
+    font-weight: bold;
+}

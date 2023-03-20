@@ -1,0 +1,49 @@
+.footer2 {
+    margin-top: 5rem;
+    background: #E7ECF9 ;
+    height: 350px;
+    padding: 100px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo {
+    width: 131px;
+    height: 64px;
+    left: 158px;
+    top: 20px;
+    font-family: 'Inter', SansSerif, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 44px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    color: rgb(32, 94, 97);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+}
+.logo2 {
+    font-size: 22px;
+    font-weight: bold;
+    color:  rgb(32, 94, 97);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.logo2-1 {
+    font-weight: bold;
+}
+.grid-logo-1 {
+    display: flex;
+    place-items: center;
+}
+.profile {
+    height: 6.5rem;
+    margin-right: 1rem;
+    border-radius: 10rem;
+}

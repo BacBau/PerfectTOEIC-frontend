@@ -21,6 +21,16 @@ code {
   overflow: hidden;
   position: relative;
   max-width: 300px;
+  /*border: 1px solid #205E61;*/
+}
+
+.part-item-data-none {
+  /*box-shadow: 0 6px 15px rgb(218 220 237 / 50%);*/
+  /*border-radius: 20px;*/
+  height: 380px;
+  overflow: hidden;
+  position: relative;
+  max-width: 300px;
 }
 
 .part-item-data-avatar {
@@ -96,7 +106,7 @@ display: -webkit-box;
 
 .test-item-panel {
   position: relative;
-  width: 100%;
+  width: 38.5rem;
   height: 180px;
   background-repeat: no-repeat;
   background-size: cover;

@@ -33,6 +33,10 @@ let dataService = {
     let url = "exam?page=1&size=100";
     return request.get(url);
   },
+  listMiniTest: () => {
+    let url = "minitest";
+    return request.get(url);
+  },
   listPart: params => {
     let url = "part?part="+ params + "&page=1&size=100";
     return request.get(url);
@@ -41,10 +45,46 @@ let dataService = {
     let url = "exam/" + params;
     return request.get(url);
   },
+  getMiniExamDetail: params => {
+    let url = "minitest/" + params;
+    return request.get(url);
+  },
   getPartDetail: params => {
     let url = "part/" + params;
     return request.get(url);
-  }
+  },
+  getTips: param => {
+    let url = "api/posts/type/" + param;
+    return request.get(url);
+  },
+  getTip: param => {
+    let url = "api/post/" + param;
+    return request.get(url);
+  },
+  getRecent: () => {
+    let url = "api/recent-post"
+    return request.get(url);
+  },
+  postContent: params => {
+    let url = "api/post";
+    return request.post(params, url);
+  },
+  deleteContent: params => {
+    let url = "api/post/" + params;
+    return request.delete(url);
+  },
+  putContent: params => {
+    let url = "api/post";
+    return request.put(params, url);
+  },
+  getInfoHome: () => {
+    let url = "api/home/introduction";
+    return request.get(url);
+  },
+  getSearch: params => {
+    let url = "api/posts/search?keyword=" + params;
+    return request.get(url);
+  },
 };
 
 export default dataService;

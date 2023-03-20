@@ -2,6 +2,7 @@
 import config from '../config';
 // let cors = require('cors');
 import api from '../components/Global/api';
+
 const request = {
     get: async (url) => {
         url = config.HOST + '/' + url
@@ -51,7 +52,13 @@ const request = {
                 case 401: return logoutUser()
                 default: {
                     console.log('err')
-                    throw (rs.message)
+                    if (rs.message) {
+                        throw (rs.message)
+                    }
+                    if (rs.description) {
+                        throw (rs.description)
+                    }
+                    throw (rs)
                 }
             }
         } catch (error) {
@@ -92,7 +99,70 @@ const request = {
             }
             throw error
         }
-    }
+    },
+    delete: async (url) => {
+        url = config.HOST + '/' + url
+        let headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + api.getToken(),
+            'Accept-Language': 'vi'
+        }
+        return await fetch(url, {
+            crossDomain: true,
+            method: 'DELETE',
+            headers
+        })
+        // switch (response.status) {
+        //     case 200: return response.status
+        //     case 401: return logoutUser()
+        //     default: {
+        //         let rs = await response.json();
+        //         console.log('err')
+        //         throw (rs.message)
+        //     }
+        // }
+    },
+    put: async (data, url) => {
+        url = config.HOST + '/' + url
+        let headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + api.getToken(),
+            'Accept-Language': 'vi'
+        }
+        try {
+            let response = await fetch(url, {
+                crossDomain: true,
+                method: 'PUT',
+                headers,
+                'Accept-Language': 'vi',
+                body: JSON.stringify(data),
+            });
+            let rs = await response.json();
+            switch (response.status) {
+                case 200: return rs
+                case 401: return logoutUser()
+                default: {
+                    console.log('err')
+                    if (rs.message) {
+                        throw (rs.message)
+                    }
+                    if (rs.description) {
+                        throw (rs.description)
+                    }
+                    throw (rs)
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            if (error.msg) {
+                console.log(error.msg)
+            }
+            throw error
+
+        }
+    },
 }
 function logoutUser() {
     alert('Wrong user or password')

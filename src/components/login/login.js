@@ -4,9 +4,13 @@ import dataService from '../../Network/dataService';
 import { actLogin, actLogout, actSaveInfo } from '../../Actions';
 import { connect } from 'react-redux';
 import api from '../Global/api';
-import { FormControl, InputLabel, Button, Container, OutlinedInput, InputAdornment, VisibilityOff, Divider, Visibility } from '@mui/material';
+import { FormControl, InputLabel, Button, Container, OutlinedInput, InputAdornment, Divider, IconButton  } from '@mui/material';
 import account from '../../images/account.png';
 import password from '../../images/password.png';
+import './login.css';
+import { Input } from 'antd';
+import {EyeInvisibleOutlined, EyeOutlined, EyeTwoTone} from "@ant-design/icons";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export class Login extends Component {
     constructor(props) {
@@ -16,7 +20,11 @@ export class Login extends Component {
             password: "",
             confirmPassword: "",
             fullName: "",
-            isLogin: true
+            isLogin: true,
+            showPassword: false,
+            showConfirmPassword: false,
+            pass: ""
+
         }
     }
 
@@ -53,8 +61,9 @@ export class Login extends Component {
                 let userResult = await dataService.currentUser()
                 const { username, avatar, fullName, email, active } = userResult;
                 this.onLoginComplete({ username, avatar, fullName, email, active });
+                window.location.href = "/";
             } catch (error) {
-
+                alert(error)
             }
         }
     }
@@ -71,10 +80,10 @@ export class Login extends Component {
                     password: this.state.password,
                     fullName: this.state.fullName
                 })
-                alert("Register success")
+                alert("Đăng ký thành công!")
                 this.setState({isLogin: true})
             } catch (error) {
-                alert("There is already an account registered with that username")
+                alert(error)
             }
         }
     }
@@ -102,6 +111,13 @@ export class Login extends Component {
     }
     handlePass = e => {
         this.setState({ password: e.target.value })
+    }
+    handlePasswordChange(event) {
+        this.setState({password:event.target.value});
+    }
+
+    toggleShowPassword() {
+        this.setState({showPassword:!this.state.showPassword});
     }
     render() {
         return (
@@ -133,14 +149,22 @@ export class Login extends Component {
                                         label="Password"
                                         value={this.state.password}
                                         onChange={(e) => this.handlePass(e)}
+                                        type={this.state.showPassword ? 'text' : 'password'}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton onClick={() => this.toggleShowPassword()} edge="end">
+                                                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
                                     />
                                 </FormControl>
                             </div>
                         </div>
 
-                        <div className="auth-form-btn" style={{ "background": "#656ef1", "color": "#fff", "fontSize": "20px", "fontWeight": "700", "borderRadius": "20px", "padding": "7px 40px", display: "flex", justifyContent: "center", maxWidth: "120px", marginLeft: "220px" }} onClick={() => this.login()}>
+                        <Button className="auth-form-btn" style={{ "background": "#656ef1", "color": "#fff", "fontSize": "20px", "fontWeight": "700", "borderRadius": "20px", "padding": "7px 40px", display: "flex", justifyContent: "center", maxWidth: "120px", marginLeft: "220px" }} onClick={() => this.login()}>
                             <span>LOGIN</span>
-                        </div>
+                        </Button>
                         <div className="divider" style={{ marginTop: "20px", marginBottom: "20px" }}>
                             <Divider className="MuiDivider-root MuiDivider-fullWidth MuiDivider-withChildren css-etlyi9" role="separator"><span className="MuiDivider-wrapper css-c1ovea">Or Login with</span></Divider>
                         </div>
@@ -219,6 +243,14 @@ export class Login extends Component {
                                         label="Password"
                                         value={this.state.password}
                                         onChange={(e) => this.handlePass(e)}
+                                        type={this.state.showPassword ? 'text' : 'password'}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton onClick={() => this.toggleShowPassword()} edge="end">
+                                                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
                                     />
                                 </FormControl>
                             </div>
@@ -234,14 +266,22 @@ export class Login extends Component {
                                         label="Confirm Password"
                                         value={this.state.confirmPassword}
                                         onChange={(e) => this.handleConfirmPass(e)}
+                                        type={this.state.showConfirmPassword ? 'text' : 'password'}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton onClick={() => this.toggleShowPassword()} edge="end">
+                                                    {this.state.showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
                                     />
                                 </FormControl>
                             </div>
                         </div>
 
-                        <div className="auth-form-btn" style={{ "background": "#656ef1", "color": "#fff", "fontSize": "20px", "fontWeight": "700", "borderRadius": "20px", "padding": "7px 40px", display: "flex", justifyContent: "center", maxWidth: "120px", marginLeft: "220px" }} onClick={() => this.register()}>
+                        <Button className="auth-form-btn" style={{ "background": "#656ef1", "color": "#fff", "fontSize": "20px", "fontWeight": "700", "borderRadius": "20px", "padding": "7px 40px", display: "flex", justifyContent: "center", maxWidth: "120px", marginLeft: "220px" }} onClick={() => this.register()}>
                             <span>REGISTER</span>
-                        </div>
+                        </Button>
                         <div className="divider" style={{ marginTop: "20px", marginBottom: "20px" }}>
                             <Divider className="MuiDivider-root MuiDivider-fullWidth MuiDivider-withChildren css-etlyi9" role="separator"><span className="MuiDivider-wrapper css-c1ovea">Or Login with</span></Divider>
                         </div>

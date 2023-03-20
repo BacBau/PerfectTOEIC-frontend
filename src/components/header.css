@@ -1,0 +1,93 @@
+.menu-bar {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 7rem;
+}
+
+.perfect-toeic {
+    width: 131px;
+    height: 64px;
+    left: 158px;
+    top: 20px;
+    font-family: 'Inter', SansSerif, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 44px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    color: #FBFBFB
+}
+
+.home {
+    font-family: 'Inter', SansSerif, sans-serif !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    line-height: 19px !important;
+    display: flex !important;
+    align-items: center !important;
+    text-align: center !important;
+    color: #FBFBFB !important;
+}
+
+.btn-login-logout {
+    background: #93BFCF;
+    border-radius: 10px;
+    width: 101px;
+    color: #000000;
+    text-align: center;
+}
+
+.anticon-down {
+    margin-left: 10px;
+    color: #FBFBFB;
+}
+
+.choose-menu-items {
+    font-family: 'Inter', SansSerif, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FBFBFB
+}
+.search-container {
+    position: relative;
+}
+
+.search-container input[type="text"] {
+    padding-left: 10px; /* Có thể thay đổi khoảng cách giữa icon và nội dung input ở đây */
+}
+
+.search-icon {
+    position: absolute;
+    top: 10px; /* Có thể thay đổi vị trí của icon ở đây */
+    /*left: 10px; !* Có thể thay đổi vị trí của icon ở đây *!*/
+    right: 10px;
+}
+.search-input {
+    width: 10rem;
+    background: rgb(32, 94, 97);
+    border-radius: 5px;
+    border: 1px solid #FFFFFF;
+    padding-left: 1rem;
+    color: #FFFFFF;
+    height: 2.25rem;
+}
+.header-app-bar {
+    margin-bottom: 20px;
+    background: #205E61 !important;
+}
+@media screen and (max-width: 1500px){
+    .header-app-bar {
+        width: fit-content !important;
+    }
+}

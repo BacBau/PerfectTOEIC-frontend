@@ -1,11 +1,9 @@
-<!-- local -->
-Cài đặt anaconda 
-# Tạo môi trường : 
-> conda create -n fe-english nodejs
+# Cms Project Fe
 
-> conda activate fe-english
+## Getting started
 
-# install lib and run
-> npm i
+```
+npm i
+npm start
+```
 
-> npm start

@@ -18,6 +18,7 @@ export default class ExamQuestion extends Component {
             numberListeningCorrect: 0,
             readingScore: 0,
             listeningScore: 0,
+            fullTest: 0
         };
         this.itemRefs = {};
     }
@@ -26,6 +27,7 @@ export default class ExamQuestion extends Component {
         const search = window.location.search;
         const params = new URLSearchParams(search);
         const examId = params.get('exam');
+        const miniExamId = params.get('mini-exam');
         if (examId) {
             let result = await dataService.getExamDetail(examId);
             var questionNumber = result.questionList[result.questionList.length - 1].childQuestion.length == 0 ?
@@ -34,7 +36,21 @@ export default class ExamQuestion extends Component {
                 listQuestion: result.questionList,
                 questionState: new Array(questionNumber).fill(0),
                 questionResult: new Array(questionNumber).fill(0),
+                fullTest: 1
             });
+            console.log(result)
+        }
+        if (miniExamId) {
+            let result = await dataService.getMiniExamDetail(miniExamId);
+            var questionNumber = result.questionList[result.questionList.length - 1].childQuestion.length == 0 ?
+                result.questionList[result.questionList.length - 1].questionNumber + result.questionList[result.questionList.length - 1].childQuestion.length : result.questionList[result.questionList.length - 1].questionNumber + result.questionList[result.questionList.length - 1].childQuestion.length - 1;
+            this.setState({
+                listQuestion: result.questionList,
+                questionState: new Array(questionNumber).fill(0),
+                questionResult: new Array(questionNumber).fill(0),
+                fullTest: 1
+            });
+            console.log(result)
         }
     }
 
@@ -150,7 +166,7 @@ export default class ExamQuestion extends Component {
                         <div className="study-layout-item study-layout-left small-desktop">
                             <div className="study-layout-left-wrap">
                                 <Typography variant="h2" gutterBottom style={{ color: "#34447C", paddingBottom: "50px" }}>
-                                    FULL TEST
+                                    {this.state.fullTest === 1 ? 'FULL TEST' : 'MINI TEST'}
                                 </Typography>
                                 <div id="question-palette-panel">
                                     <div className="current-topic-label">Test 1</div>
@@ -172,7 +188,7 @@ export default class ExamQuestion extends Component {
                                             </div>
                                             <div className="questions-stat" style={{ marginTop: "10px" }}>
                                                 <div className="questions-stat-item">
-                                                    <span className="questions-stat-item-text">{this.state.numberSelected}/200</span>
+                                                    <span className="questions-stat-item-text">{this.state.numberSelected}/{this.state.listQuestion.length}</span>
                                                 </div>
                                                 <div className="questions-stat-item">
                                                     <Button variant="contained" onClick={() => this.submit()}>Submit</Button>
@@ -285,7 +301,7 @@ export default class ExamQuestion extends Component {
                                                                         {data.image &&
                                                                             <div className="game-object-question-image">
                                                                                 <div className="game-image-widget-container" style={{ "width": "300px" }}>
-                                                                                    <img src={"https://storage.googleapis.com/" + data.image} alt="https://storage.googleapis.com/kstoeic/images/5656089_1562638419203.png" style={{ "width": "100%" }} />
+                                                                                    <img src={data.image} alt="media" style={{ "width": "100%" }} />
                                                                                 </div>
                                                                             </div>
                                                                         }

@@ -195,8 +195,8 @@ export default class PartQuestion extends Component {
                                                                     <div className="game-object-question-sound">
                                                                         <div className="custom-react-audio-player">
                                                                             <audio controls>
-                                                                                <source src={"https://storage.googleapis.com/" + this.state.listQuestion[this.state.currentQuestion].sound} type="audio/ogg" />
-                                                                                <source src={"https://storage.googleapis.com/" + this.state.listQuestion[this.state.currentQuestion].sound} type="audio/mpeg" />
+                                                                                <source src={this.state.listQuestion[this.state.currentQuestion].sound} type="audio/ogg" />
+                                                                                <source src={this.state.listQuestion[this.state.currentQuestion].sound} type="audio/mpeg" />
                                                                                 Your browser does not support the audio element.
                                                                             </audio>
                                                                         </div>
@@ -205,7 +205,7 @@ export default class PartQuestion extends Component {
                                                                 {this.state.listQuestion[this.state.currentQuestion].image &&
                                                                     <div className="game-object-question-image">
                                                                         <div className="game-image-widget-container" style={{ "width": "300px" }}>
-                                                                            <img src={"https://storage.googleapis.com" + this.state.listQuestion[this.state.currentQuestion].image} alt="https://storage.googleapis.com/kstoeic/images/5656089_1562638419203.png" style={{ "width": "100%" }} />
+                                                                            <img src={this.state.listQuestion[this.state.currentQuestion].image} alt="media" style={{ "width": "100%" }} />
                                                                         </div>
                                                                     </div>
                                                                 }

@@ -1,0 +1,138 @@
+.background1 {
+    width: 65%;
+    position: absolute;
+    height: 600px;
+}
+
+.background2 {
+    /*height: 800px;*/
+}
+
+.background3 {
+}
+
+.div-background {
+    display: flex;
+}
+
+.div-background2 {
+    margin-left: 5rem;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.div-background3 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+
+.text-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    padding-right: 5rem;
+    padding-bottom: 15rem;
+}
+
+.text-boost {
+    font-family: 'Inter', SansSerif, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 75px;
+    line-height: 80px;
+    text-align: right;
+    color: #FFFCFC;
+    text-shadow: 0.1em 0.1em 0.2em #000000;
+}
+
+.text-boost2 {
+    font-family: 'Inter', SansSerif, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 34px;
+    line-height: 44px;
+    text-align: right;
+    color: #FFFCFC
+}
+
+.text-boost3 {
+    font-family: 'Roboto', SansSerif, sans-serif;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: right;
+    color: #FFFFFF
+}
+.toeic-exam-simulator {
+    display: flex;
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+.listening {
+    display: flex;
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+.review {
+    margin-top: 148px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.review-text {
+    background: #FFFFFF;
+    box-shadow: 0 6px 15px rgb(218 220 237 / 50%);
+    border-radius: 20px;
+    height: fit-content;
+    overflow: hidden;
+    position: relative;
+    /*border: 1px solid #205E61;*/
+    padding: 1rem 1rem 1rem 1rem;
+}
+.review1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+}
+.review2 {
+    justify-content: left;
+    text-align: left;
+    font-size: 20px;
+    color: #34447C;
+}
+.btn-show-content {
+    display: none;
+}
+.list-intro {
+    font-size: 22px;
+}
+.list-intro p {
+    font-size: 18px;
+}
+.list-intro h2 {
+    font-size: 26px;
+}
+.list-intro h3 {
+    font-size: 21px;
+}
