@@ -91,3 +91,9 @@
         width: fit-content !important;
     }
 }
+.btn-primary:hover {
+    background: rgba(28,61,64,0.62) !important;
+}
+.btn-primary {
+    background: #205E61 !important;
+}

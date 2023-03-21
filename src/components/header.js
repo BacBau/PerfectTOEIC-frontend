@@ -2,15 +2,17 @@ import React, {Component} from 'react'
 
 // importing material UI components
 import AppBar from "@mui/material/AppBar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import {Button, Menu, MenuItem} from "@mui/material";
 import dataService from '../Network/dataService';
 import './header.css'
 import {DownOutlined} from "@ant-design/icons";
+import {Dropdown, Modal, Button as ButtonBoostrap} from 'react-bootstrap';
 import Popup from "reactjs-popup";
 import './menu/Tips/Tips.css'
 import PopupUpdateUser from "./PopupUpdateUser";
+import PostContent from "./menu/Tips/PostContent";
 
 export default class Header extends Component {
     constructor(props) {
@@ -21,8 +23,25 @@ export default class Header extends Component {
             anchorVocabulary: null,
             anchorTips: null,
             anchorProfileUser: null,
-            keyWord: ""
-        }
+            keyWord: "",
+            showModal: true,
+            showDropdown: false
+        };
+    }
+
+    handleToggle(event) {
+        this.setState({showDropdown: !event});
+    }
+
+    async handleModalClose() {
+        await this.setState({showModal: false});
+        console.log(this.state.showModal);
+    }
+
+    async handleModalOpen() {
+        await this.setState({showModal: true});
+        await this.setState({showDropdown: false});
+        console.log(this.state.showModal);
     }
 
     handleLogout() {
@@ -89,12 +108,13 @@ export default class Header extends Component {
         if (this.props.loggedInUserObj.username === undefined) {
             window.location.href = "/login";
         } else {
-            window.location.href = url;;
+            window.location.href = url;
+            ;
         }
     }
 
     async handleSearch(event) {
-        await this.setState({keyWord:event})
+        await this.setState({keyWord: event})
     }
 
     handleKeyDown = (event) => {
@@ -104,6 +124,7 @@ export default class Header extends Component {
     };
 
     render() {
+        console.log(this.state.showDropdown)
         return (
             <AppBar position="static" className="header-app-bar">
                 {/* <Toolbar>
@@ -139,7 +160,7 @@ export default class Header extends Component {
 
                         <div>
                             <button
-                                style={{display:"flex"}}
+                                style={{display: "flex"}}
                                 aria-owns={this.state.anchorPractice ? "simple-menu" : undefined}
                                 aria-haspopup="true"
                                 onClick={(e) => this.handleHoverPractice(e)}
@@ -173,7 +194,7 @@ export default class Header extends Component {
                         </div>
                         <div>
                             <button
-                                style={{display:"flex"}}
+                                style={{display: "flex"}}
                                 aria-owns={this.state.anchorTest ? "simple-menu" : undefined}
                                 aria-haspopup="true"
                                 onClick={(e) => this.handleHoverTest(e)}
@@ -193,10 +214,12 @@ export default class Header extends Component {
                                 <MenuItem onClick={() => this.handleClickTest("/exam")}>Full Test</MenuItem>
                             </Menu>
                         </div>
-                        <button className="home" onClick={() => window.location.href = "/vocabulary/introduce"}>Vocabulary</button>
+                        <button className="home"
+                                onClick={() => window.location.href = "/vocabulary/introduce"}>Vocabulary
+                        </button>
                         <div>
                             <button
-                                style={{display:"flex"}}
+                                style={{display: "flex"}}
                                 aria-owns={this.state.anchorTips ? "simple-menu" : undefined}
                                 aria-haspopup="true"
                                 onClick={(e) => this.handleHoverTips(e)}
@@ -210,9 +233,10 @@ export default class Header extends Component {
                                 anchorEl={this.state.anchorTips}
                                 open={Boolean(this.state.anchorTips)}
                                 onClose={() => this.handleCloseTips()}
-                                MenuListProps={{ onMouseLeave: () => this.handleCloseTips() }}
+                                MenuListProps={{onMouseLeave: () => this.handleCloseTips()}}
                             >
-                                <MenuItem onClick={() => window.location.href = "/tips/listening"}>Listening Tips</MenuItem>
+                                <MenuItem onClick={() => window.location.href = "/tips/listening"}>Listening
+                                    Tips</MenuItem>
                                 <MenuItem onClick={() => window.location.href = "/tips/reading"}>Reading Tips</MenuItem>
                             </Menu>
                         </div>
@@ -224,9 +248,13 @@ export default class Header extends Component {
                         {/*</input>*/}
                         {/*<FontAwesomeIcon icon={faSearch} />*/}
                         <div className="search-container">
-                            <input onChange={event => this.handleSearch(event.target.value)} onKeyDown={(event) => this.handleKeyDown(event)} className="search-input" type="text" placeholder="Search" />
+                            <input onChange={event => this.handleSearch(event.target.value)}
+                                   onKeyDown={(event) => this.handleKeyDown(event)} className="search-input" type="text"
+                                   placeholder="Search"/>
                             <button>
-                                <FontAwesomeIcon onClick={() => window.location.href = "/search?keyword=" + this.state.keyWord} icon={faSearch} className="search-icon" />
+                                <FontAwesomeIcon
+                                    onClick={() => window.location.href = "/search?keyword=" + this.state.keyWord}
+                                    icon={faSearch} className="search-icon"/>
                             </button>
                         </div>
                     </div>
@@ -245,14 +273,52 @@ export default class Header extends Component {
                     {this.props.loggedInUserObj.username !== undefined &&
                         <div style={{
                             "display": "flex",
-                            "justifyContent": "flex-end",
+                            "justifyContent": "center",
                             "alignItems": "center",
                             "padding": "31px 0"
-                        }}>
-                            <img src={this.props.loggedInUserObj.username.avatar}
-                                 style={{width: "50px", height: "50px", borderRadius: "50%"}} alt=""></img>
-                            <select disable="true"
-                                    color="inherit">{this.props.loggedInUserObj.username.fullName}</select>
+                        }}
+                             onMouseLeave={() => this.handleModalOpen()}
+                        >
+                            <Dropdown style={{
+                                "padding": "0px 1rem 0px 1rem"
+                            }}
+                                      show={this.state.showDropdown}
+                                      onClick={() => this.handleToggle(this.state.showDropdown)}
+                            >
+                                <Dropdown.Toggle
+                                    style={{
+                                        background:"#205E61 !important",
+                                        "display": "flex",
+                                        "justifyContent": "center",
+                                        "alignItems": "center"
+                                    }}
+                                    id="profile-dropdown">
+                                    <div style={{
+                                        "display": "flex",
+                                        "justifyContent": "center",
+                                        "alignItems": "center"
+                                    }}>
+                                        <img src={this.props.loggedInUserObj.username.avatar}
+                                             style={{width: "50px", height: "50px", borderRadius: "50%"}} alt=""></img>
+                                        <div disable="true"
+                                             color="inherit">{this.props.loggedInUserObj.username.fullName}</div>
+                                    </div>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item>
+                                        <Popup modal
+                                               onOpen={() => this.handleModalClose()}
+                                               onClose={() => this.handleModalOpen()}
+                                               trigger={
+                                                   this.state.showModal && this.state.showDropdown &&
+                                                   <button style={{marginTop: '1rem', fontSize: '16px'}}>Update
+                                                       Users</button>
+                                               }>
+                                            <PopupUpdateUser/>
+                                        </Popup>
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
                             <div className="btn-login-logout">
                                 <Button color="inherit" onClick={() => this.handleLogout()}>Log out</Button>
                             </div>
